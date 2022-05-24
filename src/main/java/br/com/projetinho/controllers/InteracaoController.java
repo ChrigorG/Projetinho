@@ -1,9 +1,11 @@
 package br.com.projetinho.controllers;
 
+import br.com.projetinho.model.InteracaoVoto;
 import br.com.projetinho.model.Pauta;
-import br.com.projetinho.repository.PautaRepository;
+import br.com.projetinho.repository.InteracaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
@@ -13,26 +15,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 @RestController
-@RequestMapping("/pauta")
-public class PautaController {
+@RequestMapping("/interacao")
+public class InteracaoController {
 
     @Autowired
-    private PautaRepository pautaRepository;
+    private InteracaoRepository interacaoRepository;
+    private Pauta pauta;
 
-    //CRUD
-
-    @GetMapping("/readPauta")
-    public List<Pauta> readPauta(){
-        return pautaRepository.findAll();
+    @PostMapping("/createInteraco")
+    public InteracaoVoto interacao(@RequestBody @Valid InteracaoVoto interacao){
+        return interacaoRepository.save(interacao);
     }
-
-    @PostMapping("/createPauta")
-    public Pauta pauta(@RequestBody @Valid Pauta pauta){
-        return pautaRepository.save(pauta);
-    }
-
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -46,5 +40,6 @@ public class PautaController {
         });
         return errors;
     }
+
 
 }

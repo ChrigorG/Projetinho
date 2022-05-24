@@ -11,8 +11,5 @@ public class ProjetinhoApplication {
 		SpringApplication.run(ProjetinhoApplication.class, args);
 	}
 
-	@GetMapping("/online")
-	public String online(){
-		return "Server Online";
-	}
+
 }

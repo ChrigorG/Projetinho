@@ -1,9 +1,14 @@
 package br.com.projetinho.model;
 
-import lombok.*;
-import org.springframework.web.bind.annotation.GetMapping;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.annotations.Parent;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 
 @Getter
 @Setter
@@ -17,9 +22,10 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @Column(name = "Nome")
+    @NotBlank(message = "Campo está vázio!")
+    @Pattern(regexp = "^[A-Z]+(.)*", message = "A primeira letra tem que ser Maiuscula!")//A primeira letra tem que ser Maiuscula
+    @Column(name = "Nome", nullable = false, length = 50)
     private String name;
-    private String voto; //null
 
 
 }
